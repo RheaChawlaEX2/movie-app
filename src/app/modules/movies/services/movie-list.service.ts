@@ -1,8 +1,9 @@
-import { Injectable, QueryList } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { FilterData, MovieListData } from '../model/movie-list-data.model';
+import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { MAIN_URL, QUERY_PARAMS } from '../constants/api-url.constants';
+import { environment } from 'src/environments/environment';
+import { QUERY_PARAMS } from '../constants/movies.constants';
+import { FilterData, MovieListData } from '../model/movie-list-data.model';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +15,6 @@ export class MovieListService {
   isFilter = false;
   url: string = '';
 
-
   initialData: FilterData = {
   search: "",
   type:  "",
@@ -23,30 +23,25 @@ export class MovieListService {
   search: string = QUERY_PARAMS.search;
   type: string = QUERY_PARAMS.type;
   order: string = QUERY_PARAMS.order;
-
   filterObject: BehaviorSubject<FilterData> = new BehaviorSubject(this.initialData);
   filterObject$ = this.filterObject.asObservable()
   
   getAllMovies():Observable<MovieListData> {
     return this.http.get<MovieListData>(this.setUrl())
   }
-
   getAllMoviesTitles(){
         return this.http.get<MovieListData>(this.setUrl());
   }
-
   setUrl() {
     if (this.isFilter) {
-      this.url = `${MAIN_URL}&type=${this.type}&order=${this.order}&name=${this.search}`;
+      this.url = `${environment.apiBaseUrl}&type=${this.type}&order=${this.order}&name=${this.search}`;
     }
     else {
-      this.url = `${MAIN_URL}&pageSize=1000`;
+      this.url = `${environment.apiBaseUrl}&pageSize=1000`;
     }
     this.isFilter = true;
     return this.url;
   }
-
- 
   checkFilter() {
     return this.isFilter;
   }
@@ -63,7 +58,6 @@ export class MovieListService {
   this.search = searchFilter;
   this.type = typeFilter.replace(" ", "%20");
   this.order = orderFilter;
-  console.log(typeFilter.replace(" ", "%20"))
-}
+  }
   
 }
