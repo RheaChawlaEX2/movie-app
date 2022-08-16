@@ -10,11 +10,9 @@ export interface MovieListData {
     rating: string
 }
 
-export interface FilterData{
-    
+export interface FilterData{  
     search: string,
     type: string,
-    order: string,
-    
+    order: string,    
 }
 

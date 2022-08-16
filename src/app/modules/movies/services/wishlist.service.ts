@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+
 import { ToggleWishListData } from '../model/toggle-wishlist-data.model';
 
 @Injectable({

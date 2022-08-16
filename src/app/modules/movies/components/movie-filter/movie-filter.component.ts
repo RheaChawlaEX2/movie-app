@@ -1,8 +1,8 @@
 
 import { Component, ElementRef, Input, ViewChild } from '@angular/core';
 import { Observable } from 'rxjs';
-import { TypeOptions } from '../../constants/movies.constants';
 
+import { TypeOptions } from '../../constants/movies.constants';
 import { MovieListData } from '../../model/movie-list-data.model';
 import { ToggleWishListData } from '../../model/toggle-wishlist-data.model';
 import { MovieListService } from '../../services/movie-list.service';

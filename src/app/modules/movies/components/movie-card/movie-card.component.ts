@@ -1,9 +1,7 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
+
 import { MovieConstants } from '../../constants/movies.constants';
 import { MovieListData } from '../../model/movie-list-data.model';
-
-
-
 @Component({
   selector: 'app-movie-card',
   templateUrl: './movie-card.component.html',
