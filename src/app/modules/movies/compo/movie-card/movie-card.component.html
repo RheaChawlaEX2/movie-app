@@ -1,0 +1,18 @@
+<figure [id]="movie.showId">
+    <img [src]="imgSrc">
+    <figcaption>
+        <span class="color-text">{{movie.releaseYear}}</span><br>
+        <span class="place-name"> {{movie.title}} </span><br>
+        <span class="type"> {{movie.type}} </span><br>
+        <span *ngIf="movie.rating; else skeleton;" class="rating"> {{movie.rating}} </span>
+        <ng-template #skeleton>
+            <span class="rating"> N.A. </span>
+        </ng-template>
+    </figcaption>
+    <ng-container *ngIf="!movieInWishlist; else removeMovie">
+        <button (click)="addToWishlist()">{{addMovieBtn}} </button>
+    </ng-container>
+    <ng-template #removeMovie>
+        <button (click)="removeFromWishlist()">{{removeMovieBtn}} </button>
+    </ng-template>
+</figure>

@@ -1,0 +1,42 @@
+
+img{
+ border-radius: 3px;
+width: 80%;
+height: 70%;
+
+}
+
+button{
+    border-radius: 5%;
+    height: 20%;
+}
+
+figure {
+    margin-left: 10%;
+    position: relative;
+    cursor: pointer;
+    }
+  
+.color-text{
+    color: rgb(165, 41, 3);
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 16px;
+    text-transform: uppercase;
+}
+.place-name {
+    color: rgb(72, 72, 72);
+    font-size: 16px;
+    line-height: 22px;
+    font-weight: 700;
+}
+
+.type {
+    font-size: 14px;
+    line-height: 18px;
+    color: rgb(72, 72, 72) !important;
+}
+
+.rating {
+    font-size: 12px;
+}
