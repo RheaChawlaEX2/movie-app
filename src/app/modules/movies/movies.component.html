@@ -1,0 +1,28 @@
+<div class="row">
+    <div id="movieList">
+        <select id="list">
+            <ng-container *ngIf="count === 0; else wishlistCount">
+                <option id="wishlistOption">WishList</option>
+            </ng-container>
+            <ng-template #wishlistCount>
+                <option id="wishlistOption">WishList ({{count}})</option>
+            </ng-template>
+            
+            
+                <ng-container  *ngFor="let movie of movieData" >
+                    <option><app-wishlist *ngIf="movieData" [movie]="movie['movie-data']"></app-wishlist></option>
+                    
+
+                </ng-container>
+                   
+                   <!-- *ngFor="let movie of movieData" [movie]="movie['movie-data']" -->
+        </select>
+    </div>
+    <app-movie-filter [movies]="movieData"  ></app-movie-filter>
+
+</div>
+
+
+<ng-container *ngIf="movies">
+    <app-movie-card-list class="row"></app-movie-card-list>
+</ng-container>
