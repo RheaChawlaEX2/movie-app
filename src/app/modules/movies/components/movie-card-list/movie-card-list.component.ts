@@ -10,24 +10,24 @@ import { WishlistService } from '../../services/wishlist.service';
   templateUrl: './movie-card-list.component.html',
   styleUrls: ['./movie-card-list.component.css']
 })
-export class MovieCardListComponent implements  OnDestroy {
+export class MovieCardListComponent implements OnDestroy {
 
   @Output() toggleListEvent!: EventEmitter<any>;
 
   constructor(public movieListService: MovieListService, public wishlist: WishlistService) { }
-  movies! : Observable<any>;
+  movies!: Observable<any>;
   ngOnInit(): void {
-      this.movieListService.filterObject.subscribe(() => {
-        this.movies = this.movieListService.getAllMovies()
-      });     
+    this.movieListService.filterObject.subscribe(() => {
+      this.movies = this.movieListService.getAllMovies()
+    });
   }
   handleMovieData(movies: ToggleWishListData) {
-    if (!movies["in-wishlist"]) {
+    if (!movies['in-wishlist']) {
       this.wishlist.addToWishList(movies);
     }
     else {
       this.wishlist.removeFromWishList(movies);
-    }    
+    }
   }
   ngOnDestroy() {
     this.movieListService.filterObject.unsubscribe();

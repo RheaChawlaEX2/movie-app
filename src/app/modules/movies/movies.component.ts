@@ -21,6 +21,7 @@ export class MoviesComponent implements OnInit, AfterContentChecked{
   setFilter !: FilterData;
   ngOnInit(): void {
     this.movies = this.movieListService.getAllMovies();
+  
   }
 
   ngAfterContentChecked(): void {
