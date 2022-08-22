@@ -18,6 +18,7 @@ export class WishlistService {
   getWishListData(): ToggleWishListData[] {
     return this.wishList;
   }
+
   addToWishList(movie: ToggleWishListData) {
     if (!this.isInWishList(movie['movie-data'])) {
       this.wishList.push(movie);

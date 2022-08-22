@@ -15,7 +15,8 @@ export class MoviesComponent implements OnInit, AfterContentChecked{
 
   constructor( public wishlist: WishlistService, public movieListService: MovieListService) {}
  
-  movieData!: ToggleWishListData[];
+  wishListData!: ToggleWishListData[];
+  
   movies !: Observable<MovieListData>;
   count = 0;
   setFilter !: FilterData;
@@ -24,13 +25,24 @@ export class MoviesComponent implements OnInit, AfterContentChecked{
   
   }
 
+  wishListDataHandling(movies : ToggleWishListData) {
+    if (movies['in-wishlist']) {
+      this.wishlist.addToWishList(movies);
+    }
+    else {
+      this.wishlist.removeFromWishList(movies);
+    }
+  }
+  
+
+
   handleFilters(filter: FilterData) {
     this.movieListService.setParams(filter);
     this.movies = this.movieListService.getAllMovies();
   }
 
   ngAfterContentChecked(): void {
-    this.movieData = this.wishlist.getWishListData();
+    this.wishListData = this.wishlist.getWishListData();
     this.count = this.wishlist.getMovieCount()
     
   }

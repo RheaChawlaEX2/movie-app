@@ -38,27 +38,26 @@ export class MovieFilterComponent  {
 
   filters: FilterData = {
     search: "",
-    type: "Movie",
-    order: "desc" 
+    type: "",
+    order: "" 
   }
 
   autoSearch() {
-    let name: string = ""
-    name += this.search.nativeElement.value;
-    this.filters.search = name;
+
+    this.filters.search += this.search.nativeElement.value || '';
     this.filterEvent.emit(this.filters);
     this.movieTitles = this.movieListService.getAllMovies();
   }
 
   setType(typeValue: any) {
-      this.filters.type = typeValue;
+    this.filters.type = typeValue;
     this.filterEvent.emit(this.filters);
   }
 
- 
+
   sortByRelease() {
     this.filters.order = "asc";
-    this.filterEvent.emit(this.filters); 
+    this.filterEvent.emit(this.filters);
   }
 
 }

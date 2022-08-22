@@ -12,18 +12,14 @@ import { WishlistService } from '../../services/wishlist.service';
 })
 export class MovieCardListComponent  {
 
-  @Output() toggleListEvent!: EventEmitter<any>;
+  @Output() toggleListEvent = new EventEmitter;
   constructor(public movieListService: MovieListService, public wishlist: WishlistService) { }
-  @Input() movies!: Observable<any>;
+  @Input() movies!: any;
+
   ngOnInit(): void { }
   
   handleMovieData(movies: ToggleWishListData) {
-    if (!movies['in-wishlist']) {
-      this.wishlist.addToWishList(movies);
-    }
-    else {
-      this.wishlist.removeFromWishList(movies);
-    }
+    this.toggleListEvent.emit(movies);
   }
 
 }
