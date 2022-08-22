@@ -42,7 +42,7 @@ export class MovieFilterComponent  {
     this.name = ""
     this.name += this.search.nativeElement.value;
     this.movieListService.setParams(this.name, this.typeFilter, this.order)
-    this.movieTitles = this.movieListService.getAllMoviesTitles();
+    this.movieTitles = this.movieListService.getAllMovies();
     this.movieListService.setUrl();   
   }
 

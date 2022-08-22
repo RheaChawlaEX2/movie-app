@@ -27,28 +27,27 @@ export class MovieListService {
   filterObject: BehaviorSubject<FilterData> = new BehaviorSubject(this.initialData);
   filterObject$ = this.filterObject.asObservable()
   
-  getAllMovies():Observable<MovieListData> {
+  getAllMovies(): Observable<MovieListData> {
+   
     return this.http.get<MovieListData>(this.setUrl())
   }
-  getAllMoviesTitles(){
-        return this.http.get<MovieListData>(this.setUrl());
-  }
+ 
   setUrl() {
+    
     if (this.isFilter) {
       this.url = `${environment.apiBaseUrl}&type=${this.type}&order=${this.order}&name=${this.search}`;
     }
     else {
       this.url = `${environment.apiBaseUrl}&pageSize=1000`;
     }
-    this.isFilter = true;
+
     return this.url;
   }
   checkFilter() {
     return this.isFilter;
   }
-
-  
   setParams(searchFilter: string, typeFilter: string, orderFilter: string) {
+    
     this.isFilter = true;
   this.filterObject.next({
     search: searchFilter,
