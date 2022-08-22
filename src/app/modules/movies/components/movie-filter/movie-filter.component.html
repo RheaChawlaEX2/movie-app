@@ -2,7 +2,7 @@
     <section id="4col">
         <div class="search">
             <input type="text" (keyup)="autoSearch()" placeholder="Search" #searchbar>
-            <ng-container #checkListSpaces *ngIf="name; else listSkeleton">
+            <ng-container id="check-list-spaces" *ngIf="name; else listSkeleton" #checkListSpaces>
                 <div *ngFor="let movie of movieTitles | async"  >
                     <span data-value='title' class='inside-list'>{{movie.title}}</span>
                 </div>
