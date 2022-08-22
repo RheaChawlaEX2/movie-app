@@ -24,6 +24,11 @@ export class MoviesComponent implements OnInit, AfterContentChecked{
   
   }
 
+  handleFilters(filter: FilterData) {
+    this.movieListService.setParams(filter);
+    this.movies = this.movieListService.getAllMovies();
+  }
+
   ngAfterContentChecked(): void {
     this.movieData = this.wishlist.getWishListData();
     this.count = this.wishlist.getMovieCount()

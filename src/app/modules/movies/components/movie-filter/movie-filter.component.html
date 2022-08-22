@@ -1,8 +1,8 @@
 <div class="filter">
-    <section id="4col">
+    <section id="4col" >
         <div class="search">
             <input type="text" (keyup)="autoSearch()" placeholder="Search" #searchbar>
-            <ng-container id="check-list-spaces" *ngIf="name; else listSkeleton" #checkListSpaces>
+            <ng-container id="check-list-spaces" *ngIf="filters.search; else listSkeleton" #checkListSpaces>
                 <div *ngFor="let movie of movieTitles | async"  >
                     <span data-value='title' class='inside-list'>{{movie.title}}</span>
                 </div>
@@ -14,13 +14,13 @@
        
         <div id="typeFilter">
             <label for="type"><b>Type: </b></label>
-            <select name="type" #type (click)="setType(type.value)">
+            <select name="type" #type (change)="setType(type.value)">
                 <option default disabled selected value  > -- select your type -- </option>
                 <ng-container *ngFor="let option of options">
                     <option [value]="option">{{option}}</option>
                 </ng-container>
             </select>
         </div>
-        <button class="sort" id="release year" (click)="sortByRelease()">Filter</button>
+        <button class="sort" id="release year" (click)="sortByRelease()">Sort By Release Year</button>
     </section>
 </div>

@@ -1,9 +1,9 @@
 
-import { Component, ElementRef, Input, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import { Observable } from 'rxjs';
 
 import { TypeOptions } from '../../constants/movies.constants';
-import { MovieListData } from '../../model/movie-list-data.model';
+import { FilterData, MovieListData } from '../../model/movie-list-data.model';
 import { ToggleWishListData } from '../../model/toggle-wishlist-data.model';
 import { MovieListService } from '../../services/movie-list.service';
 
@@ -29,35 +29,36 @@ export class MovieFilterComponent  {
   checklist !: ElementRef<any>;
 
   @Input() movies!: ToggleWishListData[];
+  @Output() filterEvent: EventEmitter<FilterData> = new EventEmitter<FilterData>();
 
-  name: string = "";
-  order: string = "desc";
-  typeFilter: string = "Movie";
   options = TypeOptions;
   isFilter: boolean = false;
   movieTitles !: Observable<any> ;
   movieData!: MovieListData[];
 
+  filters: FilterData = {
+    search: "",
+    type: "Movie",
+    order: "desc" 
+  }
+
   autoSearch() {
-    this.name = ""
-    this.name += this.search.nativeElement.value;
-    this.movieListService.setParams(this.name, this.typeFilter, this.order)
-    this.movieTitles = this.movieListService.getAllMoviesTitles();
-    this.movieListService.setUrl();   
+    let name: string = ""
+    name += this.search.nativeElement.value;
+    this.filters.search = name;
+    this.filterEvent.emit(this.filters);
+    this.movieTitles = this.movieListService.getAllMovies();
   }
 
   setType(typeValue: any) {
-      this.typeFilter = typeValue;
-      this.movieListService.setParams(this.name, this.typeFilter, this.order)
+      this.filters.type = typeValue;
+    this.filterEvent.emit(this.filters);
   }
 
-  sortByRelease() {
-    this.order = "asc"
-    this.movieListService.setParams(this.name, this.typeFilter, this.order);
-    this.movieListService.setUrl();    
-  }
-   
  
-  
+  sortByRelease() {
+    this.filters.order = "asc";
+    this.filterEvent.emit(this.filters); 
+  }
 
 }

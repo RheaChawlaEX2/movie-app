@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnDestroy, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 import { Observable } from 'rxjs';
 import { ToggleWishListData } from '../../model/toggle-wishlist-data.model';
@@ -10,17 +10,13 @@ import { WishlistService } from '../../services/wishlist.service';
   templateUrl: './movie-card-list.component.html',
   styleUrls: ['./movie-card-list.component.css']
 })
-export class MovieCardListComponent implements OnDestroy {
+export class MovieCardListComponent  {
 
   @Output() toggleListEvent!: EventEmitter<any>;
-
   constructor(public movieListService: MovieListService, public wishlist: WishlistService) { }
-  movies!: Observable<any>;
-  ngOnInit(): void {
-    this.movieListService.filterObject.subscribe(() => {
-      this.movies = this.movieListService.getAllMovies()
-    });
-  }
+  @Input() movies!: Observable<any>;
+  ngOnInit(): void { }
+  
   handleMovieData(movies: ToggleWishListData) {
     if (!movies['in-wishlist']) {
       this.wishlist.addToWishList(movies);
@@ -29,7 +25,5 @@ export class MovieCardListComponent implements OnDestroy {
       this.wishlist.removeFromWishList(movies);
     }
   }
-  ngOnDestroy() {
-    this.movieListService.filterObject.unsubscribe();
-  }
+
 }
