@@ -43,7 +43,7 @@ export class MovieFilterComponent  {
   }
 
   autoSearch() {
-
+    this.filters.search = ""
     this.filters.search += this.search.nativeElement.value || '';
     this.filterEvent.emit(this.filters);
     this.movieTitles = this.movieListService.getAllMovies();

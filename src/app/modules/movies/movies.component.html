@@ -14,8 +14,11 @@
             </ng-container>
         </select>
     </div>
-    <app-movie-filter [movies]="wishListData" (filterEvent)="handleFilters($event)" ></app-movie-filter>
+    <app-movie-filter id="filter" [movies]="wishListData"></app-movie-filter>
 </div>
-<ng-container *ngIf="movies | async as data">
-    <app-movie-card-list (toggleListEvent)="wishListDataHandling($event)" [movies]="data" class="row"></app-movie-card-list>
+<div style="margin-top: 20px;"></div>
+<ng-container  *ngIf="movies | async as data">
+    <div class="col-6 col-md-3 result row" *ngFor="let movie of data">
+        <app-movie-card [movie]="movie"  (movieDataEvent)="wishListDataHandling($event)"></app-movie-card>
+    </div>
 </ng-container>

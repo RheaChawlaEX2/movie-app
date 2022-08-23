@@ -17,7 +17,7 @@ export class MoviesComponent implements OnInit, AfterContentChecked{
  
   wishListData!: ToggleWishListData[];
   
-  movies !: Observable<MovieListData>;
+  movies !: Observable<any> ;
   count = 0;
   setFilter !: FilterData;
   ngOnInit(): void {
