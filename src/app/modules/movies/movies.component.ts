@@ -1,6 +1,6 @@
 import { AfterContentChecked, Component, OnDestroy, OnInit } from '@angular/core';
-
 import { Observable } from 'rxjs';
+
 import { FilterData } from './model/movie-list-data.model';
 import { ToggleWishListData } from './model/toggle-wishlist-data.model';
 import { MovieListService } from './services/movie-list.service';
