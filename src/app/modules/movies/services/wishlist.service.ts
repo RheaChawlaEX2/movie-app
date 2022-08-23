@@ -21,7 +21,6 @@ export class WishlistService {
       this.wishList.push(movie);
       this.count++;
     }
-    movie['in-wishlist'] = true;
     this.inList = true;
   }
   removeFromWishList(movie: ToggleWishListData) {
@@ -29,7 +28,6 @@ export class WishlistService {
       return movie['movie-data'].title !== data['movie-data'].title;
     })
     this.count--;
-    movie['in-wishlist'] = false;
     this.inList = false;
   }
   isInWishList(movie: MovieListData) {
