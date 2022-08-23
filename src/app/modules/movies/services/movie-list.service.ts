@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { QUERY_PARAMS } from '../constants/movies.constants';
 import { FilterData, MovieListData } from '../model/movie-list-data.model';
@@ -10,54 +10,40 @@ import { FilterData, MovieListData } from '../model/movie-list-data.model';
   providedIn: 'root'
 })
 export class MovieListService {
-
   constructor(private http: HttpClient) { }
-  
-  isFilter = false;
-  url: string = '';
+  url = '';
+  search = "";
+  type = "";
+  order = "";
+  filterObject: BehaviorSubject<FilterData> = new BehaviorSubject(QUERY_PARAMS);
+  filterObject$ = this.filterObject.asObservable
 
-  initialData: FilterData = {
-  search: "",
-  type:  "",
-  order: ""
-}
-  search: string = QUERY_PARAMS.search;
-  type: string = QUERY_PARAMS.type;
-  order: string = QUERY_PARAMS.order;
-  filterObject: BehaviorSubject<FilterData> = new BehaviorSubject(this.initialData);
-  filterObject$ = this.filterObject.asObservable()
-  
   getAllMovies(): Observable<MovieListData> {
-   
-    return this.http.get<MovieListData>(this.setUrl())
+    return this.http.get<MovieListData>(this.getUrl())
   }
- 
-  setUrl() {
-    
-    if (this.isFilter) {
+  getUrl() {
+    if (this.search || this.type || this.order) {
       this.url = `${environment.apiBaseUrl}&type=${this.type}&order=${this.order}&name=${this.search}`;
     }
     else {
       this.url = `${environment.apiBaseUrl}&pageSize=1000`;
     }
-
     return this.url;
   }
-  checkFilter() {
-    return this.isFilter;
+  setFilter(filters: FilterData) {
+    this.search = filters.search;
+    this.type = filters.type.replace(" ", "%20");
+    this.order = filters.order;
+
+    this.filterObject.next({
+      search: this.search,
+      type: this.type.replace(" ", "%20"),
+      order: this.order
+    });
   }
-  setParams(searchFilter: string, typeFilter: string, orderFilter: string) {
-    
-    this.isFilter = true;
-  this.filterObject.next({
-    search: searchFilter,
-    type: typeFilter.replace(" ", "%20"),
-    order: orderFilter
-  });
-  
-  this.search = searchFilter;
-  this.type = typeFilter.replace(" ", "%20");
-  this.order = orderFilter;
-  }
-  
 }
+
+
+
+
+

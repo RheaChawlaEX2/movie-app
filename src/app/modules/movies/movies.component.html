@@ -7,15 +7,16 @@
             <ng-template #wishlistCount>
                 <option id="wishlistOption">WishList ({{count}})</option>
             </ng-template>
-            <ng-container *ngFor="let movie of movieData">
+            <ng-container *ngFor="let movie of wishListData">
                 <option>
-                    <app-wishlist *ngIf="movieData" [movie]="movie['movie-data']"></app-wishlist>
+                    <app-wishlist *ngIf="wishListData" [movie]="movie['movie-data']"></app-wishlist>
                 </option>
             </ng-container>
         </select>
     </div>
-    <app-movie-filter [movies]="movieData"></app-movie-filter>
+    <app-movie-filter [movies]="wishListData" (filterEvent)="handleFilters($event)"></app-movie-filter>
 </div>
 <ng-container *ngIf="movies | async as data">
-    <app-movie-card-list [movies]="data" class="row" (toggleListEvent)="handleMovieData($event)"></app-movie-card-list>
+    <app-movie-card-list [movies]="data" class="row" (toggleListEvent)="handlewishListData($event)">
+    </app-movie-card-list>
 </ng-container>

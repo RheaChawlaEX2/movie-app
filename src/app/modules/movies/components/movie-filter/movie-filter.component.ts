@@ -1,9 +1,9 @@
 
-import { Component, ElementRef, Input, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import { Observable } from 'rxjs';
 
 import { TypeOptions } from '../../constants/movies.constants';
-import { MovieListData } from '../../model/movie-list-data.model';
+import { FilterData, MovieListData } from '../../model/movie-list-data.model';
 import { ToggleWishListData } from '../../model/toggle-wishlist-data.model';
 import { MovieListService } from '../../services/movie-list.service';
 
@@ -12,8 +12,7 @@ import { MovieListService } from '../../services/movie-list.service';
   templateUrl: './movie-filter.component.html',
   styleUrls: ['./movie-filter.component.css']
 })
-export class MovieFilterComponent  {
-
+export class MovieFilterComponent {
   constructor(public movieListService: MovieListService) { }
 
   @ViewChild("searchbar")
@@ -29,35 +28,29 @@ export class MovieFilterComponent  {
   checklist !: ElementRef<any>;
 
   @Input() movies!: ToggleWishListData[];
+  @Output() filterEvent: EventEmitter<FilterData> = new EventEmitter<FilterData>();
 
-  name: string = "";
-  order: string = "desc";
-  typeFilter: string = "Movie";
   options = TypeOptions;
   isFilter: boolean = false;
-  movieTitles !: Observable<any> ;
+  movieTitles !: Observable<any>;
   movieData!: MovieListData[];
-
+  filters: FilterData = {
+    search: "",
+    type: "",
+    order: ""
+  }
   autoSearch() {
-    this.name = ""
-    this.name += this.search.nativeElement.value;
-    this.movieListService.setParams(this.name, this.typeFilter, this.order)
+    this.filters.search = ""
+    this.filters.search += this.search.nativeElement.value || '';
+    this.filterEvent.emit(this.filters);
     this.movieTitles = this.movieListService.getAllMovies();
-    this.movieListService.setUrl();   
   }
-
   setType(typeValue: any) {
-      this.typeFilter = typeValue;
-      this.movieListService.setParams(this.name, this.typeFilter, this.order)
+    this.filters.type = typeValue;
+    this.filterEvent.emit(this.filters);
   }
-
   sortByRelease() {
-    this.order = "asc"
-    this.movieListService.setParams(this.name, this.typeFilter, this.order);
-    this.movieListService.setUrl();    
+    this.filters.order = "asc";
+    this.filterEvent.emit(this.filters);
   }
-   
- 
-  
-
 }
