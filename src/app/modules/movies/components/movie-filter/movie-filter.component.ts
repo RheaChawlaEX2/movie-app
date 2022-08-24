@@ -2,7 +2,7 @@
 import { Component, ElementRef, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { TypeOptions } from '../../constants/movies.constants';
+import { QUERY_PARAMS, TypeOptions } from '../../constants/movies.constants';
 import { FilterData, MovieListData } from '../../model/movie-list-data.model';
 import { ToggleWishListData } from '../../model/toggle-wishlist-data.model';
 import { MovieListService } from '../../services/movie-list.service';
@@ -13,7 +13,7 @@ import { MovieListService } from '../../services/movie-list.service';
   styleUrls: ['./movie-filter.component.css']
 })
 export class MovieFilterComponent {
-  constructor(public movieListService: MovieListService) { }
+ 
 
   @ViewChild("searchbar")
   search !: ElementRef<any>;
@@ -27,30 +27,41 @@ export class MovieFilterComponent {
   @ViewChild("checklist")
   checklist !: ElementRef<any>;
 
+  @ViewChild('checkListSpaces')
+  checkListSpaces !: ElementRef<any>;
+
   @Input() movies!: ToggleWishListData[];
   @Output() filterEvent: EventEmitter<FilterData> = new EventEmitter<FilterData>();
 
   options = TypeOptions;
   isFilter: boolean = false;
-  movieTitles !: Observable<any>;
-  movieData!: MovieListData[];
-  filters: FilterData = {
-    search: "",
-    type: "",
-    order: ""
-  }
+  movieTitles$ !: Observable<MovieListData[]>;
+  filters: FilterData = QUERY_PARAMS;
+
+   constructor(public movieListService: MovieListService) { }
+
   autoSearch() {
-    this.filters.search = ""
-    this.filters.search += this.search.nativeElement.value || '';
+    this.filters.search = this.search.nativeElement.value || '';
     this.filterEvent.emit(this.filters);
-    this.movieTitles = this.movieListService.getAllMovies();
+    this.movieTitles$ = this.movieListService.getAllMovies()
   }
-  setType(typeValue: any) {
-    this.filters.type = typeValue;
+
+  onMovieClick(event: any) {
+    this.search.nativeElement.value = event;
+    this.filters.search = event;
+    this.filterEvent.emit(this.filters);
+  }
+
+  setType(typeValue: string) {
+    this.filters.type = typeValue.replace(" ", "%20");
+    if (typeValue === "All") {
+      this.filters.type = ""
+    }
     this.filterEvent.emit(this.filters);
   }
   sortByRelease() {
     this.filters.order = "asc";
     this.filterEvent.emit(this.filters);
   }
+
 }

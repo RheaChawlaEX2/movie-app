@@ -16,7 +16,7 @@
     </div>
     <app-movie-filter [movies]="wishListData" (filterEvent)="handleFilters($event)"></app-movie-filter>
 </div>
-<ng-container *ngIf="movies | async as data">
+<ng-container *ngIf="movies$ | async as data">
     <app-movie-card-list [movies]="data" class="row" (toggleListEvent)="handlewishListData($event)">
     </app-movie-card-list>
 </ng-container>
