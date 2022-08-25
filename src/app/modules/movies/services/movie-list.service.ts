@@ -33,13 +33,8 @@ export class MovieListService {
     return this.http.get<MovieListData[]>(this.getUrl())
   }
   getUrl() {
-    // if (this.checkFilters()) {
-    //   this.url = `${environment.apiBaseUrl}&type=${this.type}&order=${this.order}&name=${this.search}`;
-    // }
-    // else {
       this.url = `${environment.apiBaseUrl}&pageSize=${MovieConstants.pageSize}`;
-    // }
-    return this.url;
+      return this.url;
   }
 
   checkFilters(){
@@ -77,10 +72,6 @@ export class MovieListService {
       return this.filters.type ? this.filters.type === movie.type : this.filters.search ? word.startsWith(searchWord) : false;
     }
   }
-
-
-  
-
 }
 
 
