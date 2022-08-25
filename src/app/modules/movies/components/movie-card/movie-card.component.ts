@@ -15,25 +15,34 @@ export class MovieCardComponent implements OnInit {
   @Output() movieDataEvent = new EventEmitter();
 
   imgSrc = MovieConstants.imgSrc;
-  movieInWishlist!: boolean;
+  movieInWishlist !: boolean ;
   addMovieBtn = MovieConstants.addToWishListBtn;
   removeMovieBtn = MovieConstants.removeFromWishListBtn;
   listData !: ToggleWishListData;
 
   constructor(public wishlist: WishlistService) { }
   ngOnInit(): void {
-    this.movieInWishlist = this.wishlist.isInWishList(this.movie)
+    
   }
-  addToWishlist() {
-    this.listData = { "movie-data": this.movie, "in-wishlist": this.wishlist.isInWishList(this.movie) }
-    this.movieDataEvent.emit(this.listData)
-    this.listData['in-wishlist'] = this.wishlist.isInWishList(this.movie);
-    this.movieInWishlist = this.listData['in-wishlist'];
+
+  ngAfterContentChecked() {
+    this.isInWishList(this.movie)
   }
-  removeFromWishlist() {
-    this.listData = { "movie-data": this.movie, "in-wishlist": this.wishlist.isInWishList(this.movie) }
-    this.movieDataEvent.emit(this.listData)
-    this.listData['in-wishlist'] = this.wishlist.isInWishList(this.movie)
-    this.movieInWishlist = this.listData['in-wishlist']
+  addToWishlist(movie: MovieListData) {
+    this.wishlist.addToLocalStorage(movie);
+    this.isInWishList(this.movie)
+    console.log(this.movieInWishlist)
+  }
+  removeFromWishlist(movie: MovieListData) {
+    this.wishlist.removeFromLocalStorage(movie);
+    this.isInWishList(this.movie)
+    console.log(this.movieInWishlist)
+  }
+
+  isInWishList(movie: MovieListData) {
+    this.wishlist.getWishListData().forEach((data: MovieListData) => {
+      this.movieInWishlist = data.showId === movie.showId
+    })
+    
   }
 }

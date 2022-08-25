@@ -30,7 +30,7 @@ export class MovieFilterComponent {
   @ViewChild('checkListSpaces')
   checkListSpaces !: ElementRef<any>;
 
-  @Input() movies!: ToggleWishListData[];
+  @Input() movies!:MovieListData[];
   @Output() filterEvent: EventEmitter<FilterData> = new EventEmitter<FilterData>();
 
   options = TypeOptions;

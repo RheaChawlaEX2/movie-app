@@ -8,57 +8,43 @@ import { ToggleWishListData } from '../model/toggle-wishlist-data.model';
 })
 export class WishlistService {
   constructor() { }
-  wishList: ToggleWishListData[] = [];
+  wishList: MovieListData[] = [];
   movieCount: number = 0;
-  inList !: boolean;
-  count = 0;
-  localStorageData !: ToggleWishListData[];
+  inList: boolean = false ;
 
   ngOnInit() {
-    // this.wishList = this.getWishListData();
+    this.wishList = this.getWishListData();
   }
   
 
-  getWishListData(): ToggleWishListData[] {
+  getWishListData(): MovieListData[] {
     return JSON.parse(localStorage.getItem('wishListData') || '[]');
   }
   
   isInWishList(movie: MovieListData) {
-    for (let list of this.wishList) {
-      this.inList = list['movie-data'].showId === movie.showId;
+    for (let i = 0; i < this.getWishListData().length; i++) {
+       this.inList = this.getWishListData()[i].showId == movie.showId
     }
     return this.inList;
   }
-  getMovieCount() {
-    return this.count;
-  }
 
-  
-  addToLocalStorage(movie: ToggleWishListData) { 
-  console.log("before add",this.isInWishList(movie['movie-data']))
-    if (!this.isInWishList(movie['movie-data'])) {
-      this.setWishListStatus(true, movie);
-      this.wishList.push(movie);
-      this.count++; 
+  addToLocalStorage(movie: MovieListData) { 
+   
+    if (!this.isInWishList(movie)) {
+      this.wishList.push(movie); 
+      localStorage.setItem('wishListData', JSON.stringify(this.wishList));
       this.inList = true;
     }
-    console.log(this.wishList)
-    // localStorage.setItem('wishListData', JSON.stringify(this.wishList));
-  }
-  removeFromLocalStorage(movie: ToggleWishListData) {
-    // localStorage.removeItem('wishListData')
-    this.wishList = this.wishList.filter((data: ToggleWishListData) => {
-      return movie['movie-data'].title !== data['movie-data'].title;
-    })
-    this.count--;
-    this.inList = false;
-    console.log(this.wishList)
     
-    // localStorage.setItem('wishListData', JSON.stringify(this.wishList));
+    
   }
-
-  setWishListStatus(status: boolean, movie: ToggleWishListData) {
-    movie['in-wishlist'] = status;
+  removeFromLocalStorage(movie: MovieListData) {
+    localStorage.removeItem('wishListData')
+    this.wishList = this.wishList.filter((data: MovieListData) => {
+      return movie.title !== data.title;
+    })
+    this.inList = false
+    localStorage.setItem('wishListData', JSON.stringify(this.wishList));
   }
 
 }
