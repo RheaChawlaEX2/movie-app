@@ -21,7 +21,6 @@ export class MovieCardComponent implements OnInit {
   listData !: ToggleWishListData;
 
   constructor(public wishlist: WishlistService) { }
-
   ngOnInit(): void {
     this.movieInWishlist = this.wishlist.isInWishList(this.movie)
   }
@@ -30,7 +29,6 @@ export class MovieCardComponent implements OnInit {
     this.movieDataEvent.emit(this.listData)
     this.listData['in-wishlist'] = this.wishlist.isInWishList(this.movie);
     this.movieInWishlist = this.listData['in-wishlist'];
-
   }
   removeFromWishlist() {
     this.listData = { "movie-data": this.movie, "in-wishlist": this.wishlist.isInWishList(this.movie) }
@@ -38,5 +36,4 @@ export class MovieCardComponent implements OnInit {
     this.listData['in-wishlist'] = this.wishlist.isInWishList(this.movie)
     this.movieInWishlist = this.listData['in-wishlist']
   }
-
 }

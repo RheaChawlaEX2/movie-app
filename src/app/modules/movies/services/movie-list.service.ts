@@ -3,32 +3,21 @@ import { Injectable } from '@angular/core';
 
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { MovieCardComponent } from '../components/movie-card/movie-card.component';
 import { MovieConstants } from '../constants/movies.constants';
-import {  FilterData, MovieListData } from '../model/movie-list-data.model';
+import { FilterData, MovieListData } from '../model/movie-list-data.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class MovieListService {
-  constructor(private http: HttpClient) { 
-   
-  }
- 
+  constructor(private http: HttpClient) {} 
   url = '';
-
+  movieList: MovieListData[] = [];
   filters: FilterData = {
     search : "",
     type : "",
     order : ""
   }
-  
- filteredData: MovieListData[] = [];
-
-  movieList: MovieListData[] = [];
-
-  
-
   getAllMovies(): Observable<MovieListData[]> {
     return this.http.get<MovieListData[]>(this.getUrl())
   }
@@ -36,22 +25,14 @@ export class MovieListService {
       this.url = `${environment.apiBaseUrl}&pageSize=${MovieConstants.pageSize}`;
       return this.url;
   }
-
-  checkFilters(){
-    return (this.filters.search || this.filters.type || this.filters.order);
-     
-  }
-
   setFilter(filters: FilterData) {
     this.filters.search = filters.search;
     this.filters.type = filters.type;
     this.filters.order = filters.order;
   }
- 
   setMovieList(movies: MovieListData[]) {
     this.movieList = movies;
   }
-
   applyFilters() {
     let newList: MovieListData[] = [];
     this.movieList.forEach((movie : MovieListData) => {    
@@ -61,7 +42,6 @@ export class MovieListService {
     });
     return newList;    
   }
-  
   checkFilterConditions(movie: MovieListData): boolean {
     let word = movie.title.toLowerCase();
     let searchWord = this.filters.search.toLowerCase();

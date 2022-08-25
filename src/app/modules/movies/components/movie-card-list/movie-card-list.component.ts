@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { AfterContentChecked, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 import { FilterData, MovieListData } from '../../model/movie-list-data.model';
 import { ToggleWishListData } from '../../model/toggle-wishlist-data.model';
@@ -10,20 +10,18 @@ import { WishlistService } from '../../services/wishlist.service';
   templateUrl: './movie-card-list.component.html',
   styleUrls: ['./movie-card-list.component.css']
 })
-export class MovieCardListComponent {
-  constructor(public movieListService: MovieListService, public wishlist: WishlistService) { }
-  @Input() movies: MovieListData[] = [];
-  // @Input() isFilter: boolean = false;
-  @Input() filters !: FilterData
-  movieArray: MovieListData[] = [];
-  @Output() toggleListEvent = new EventEmitter;
+export class MovieCardListComponent implements OnInit, AfterContentChecked {
   
+  @Input() movies: MovieListData[] = [];
+  @Input() filters !: FilterData;
+  @Output() toggleListEvent = new EventEmitter;
+  movieArray: MovieListData[] = [];
+  
+  constructor(public movieListService: MovieListService, public wishlist: WishlistService) { }
   ngOnInit() {
     this.movieListService.setMovieList(this.movies);
     this.movieArray = this.movies;
-   
-}
-
+  }
   ngAfterContentChecked() {
     if (this.filters?.search || this.filters?.type || this.filters?.order) {
       this.movieArray = [];
@@ -36,9 +34,8 @@ export class MovieCardListComponent {
     }
     else {
       this.movieArray = this.movies;
-    }  
+    }
   }
-
   handleMovieData(movies: ToggleWishListData) {
     this.toggleListEvent.emit(movies);
   }

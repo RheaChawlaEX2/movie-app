@@ -1,21 +1,11 @@
 import { Component, Input } from '@angular/core';
-import { MovieConstants } from '../../constants/movies.constants';
 import { MovieListData } from '../../model/movie-list-data.model';
-
-
 @Component({
   selector: 'app-wishlist',
   templateUrl: './wishlist.component.html',
   styleUrls: ['./wishlist.component.css']
 })
 export class WishlistComponent {
-
-  constructor() { }
-
-  @Input() movie!: MovieListData;
-  imgSrc = MovieConstants.imgSrc;
-
- 
-
-  
+  @Input() movie!: MovieListData;  
+  constructor() { }  
 }

@@ -12,21 +12,17 @@ import { WishlistService } from './services/wishlist.service';
   styleUrls: ['./movies.component.css']
 })
 export class MoviesComponent implements OnInit, AfterContentChecked {
-  constructor(public wishlist: WishlistService, public movieListService: MovieListService) { }
   wishListData!: ToggleWishListData[];
   movies$ !: Observable<MovieListData[]>;
   count = 0;
   filters!: FilterData;
  
-  
-
+  constructor(public wishlist: WishlistService, public movieListService: MovieListService) { }
   ngOnInit(): void {
     this.movies$ = this.movieListService.getAllMovies();
     this.wishListData = this.wishlist.getWishListData();
     this.count = this.wishListData.length;
-     
   }
-  
   handlewishListData(movies: ToggleWishListData) {
     if (!movies['in-wishlist']) {
       this.wishlist.addToLocalStorage({ 'movie-data': movies['movie-data'], 'in-wishlist': false });
@@ -34,16 +30,13 @@ export class MoviesComponent implements OnInit, AfterContentChecked {
     else {
       this.wishlist.removeFromLocalStorage(movies);
     }
-    
   }
   handleFilters(filter: FilterData) {
     this.filters = filter;
     this.movieListService.setFilter(this.filters)
   }
-
   ngAfterContentChecked(): void {
     this.wishListData = this.wishlist.getWishListData();
     this.count = this.wishlist.getWishListData().length
-  }
- 
+  } 
 }
