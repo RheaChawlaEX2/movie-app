@@ -12,32 +12,54 @@ export class WishlistService {
   movieCount: number = 0;
   inList !: boolean;
   count = 0;
+  localStorageData !: ToggleWishListData[];
+
+  ngOnInit() {
+    // this.wishList = this.getWishListData();
+  }
+  
 
   getWishListData(): ToggleWishListData[] {
-    return this.wishList;
+    return JSON.parse(localStorage.getItem('wishListData') || '[]');
   }
-  addToWishList(movie: ToggleWishListData) {
-    if (!this.isInWishList(movie['movie-data'])) {
-      this.wishList.push(movie);
-      this.count++;
+  
+  isInWishList(movie: MovieListData) {
+    for (let list of this.wishList) {
+      this.inList = list['movie-data'].showId === movie.showId;
     }
-    this.inList = true;
+    return this.inList;
   }
-  removeFromWishList(movie: ToggleWishListData) {
+  getMovieCount() {
+    return this.count;
+  }
+
+  
+  addToLocalStorage(movie: ToggleWishListData) { 
+  console.log("before add",this.isInWishList(movie['movie-data']))
+    if (!this.isInWishList(movie['movie-data'])) {
+      this.setWishListStatus(true, movie);
+      this.wishList.push(movie);
+      this.count++; 
+      this.inList = true;
+    }
+    console.log(this.wishList)
+    // localStorage.setItem('wishListData', JSON.stringify(this.wishList));
+  }
+  removeFromLocalStorage(movie: ToggleWishListData) {
+    // localStorage.removeItem('wishListData')
     this.wishList = this.wishList.filter((data: ToggleWishListData) => {
       return movie['movie-data'].title !== data['movie-data'].title;
     })
     this.count--;
     this.inList = false;
+    console.log(this.wishList)
+    
+    // localStorage.setItem('wishListData', JSON.stringify(this.wishList));
   }
-  isInWishList(movie: MovieListData) {
-    for (let list of this.wishList) {
-      this.inList = list['movie-data']['title'] === movie['title'];
-    }
-    return this.inList;
+
+  setWishListStatus(status: boolean, movie: ToggleWishListData) {
+    movie['in-wishlist'] = status;
   }
-  getMovieCount() {
-    return this.wishList.length;
-  }
+
 }
 

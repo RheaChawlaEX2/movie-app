@@ -1,6 +1,6 @@
 <div style="margin-top: 20px;"></div>
 <ng-container class="container" *ngIf="movies">
-    <div class="col-6 col-md-3 result" *ngFor="let movie of movies ">
+    <div class="col-6 col-md-3 result" *ngFor="let movie of movieArray">
         <app-movie-card [movie]="movie" (movieDataEvent)="handleMovieData($event)"></app-movie-card>
     </div>
 </ng-container>

@@ -35,7 +35,7 @@ export class MovieFilterComponent {
 
   options = TypeOptions;
   isFilter: boolean = false;
-  movieTitles$ !: Observable<MovieListData[]>;
+  movieTitles :MovieListData[] = [];
   filters: FilterData = QUERY_PARAMS;
 
    constructor(public movieListService: MovieListService) { }
@@ -43,7 +43,7 @@ export class MovieFilterComponent {
   autoSearch() {
     this.filters.search = this.search.nativeElement.value || '';
     this.filterEvent.emit(this.filters);
-    this.movieTitles$ = this.movieListService.getAllMovies()
+    this.movieTitles = this.movieListService.applyFilters();
   }
 
   onMovieClick(event: any) {
@@ -53,7 +53,7 @@ export class MovieFilterComponent {
   }
 
   setType(typeValue: string) {
-    this.filters.type = typeValue.replace(" ", "%20");
+    this.filters.type = typeValue;
     if (typeValue === "All") {
       this.filters.type = ""
     }

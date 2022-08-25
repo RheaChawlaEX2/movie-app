@@ -3,7 +3,7 @@
         <div class="search">
             <input type="text" (keyup)="autoSearch()" placeholder="Search" #searchbar>
             <ng-container *ngIf="filters.search; else listSkeleton">
-                <ng-container id="check-list-spaces" *ngIf=" movieTitles$ | async as movieTitles; else listSkeleton" #checkListSpaces>
+                <ng-container id="check-list-spaces" *ngIf=" movieTitles; else listSkeleton" #checkListSpaces>
                     <div *ngFor="let movie of movieTitles">
                         <span class='inside-list' (click)="onMovieClick(movie.title)">{{movie?.title}}</span>
                     </div>
