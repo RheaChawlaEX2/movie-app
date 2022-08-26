@@ -1,10 +1,8 @@
 
 import { Component, ElementRef, EventEmitter, Input, Output, ViewChild } from '@angular/core';
-import { Observable } from 'rxjs';
 
 import { QUERY_PARAMS, TypeOptions } from '../../constants/movies.constants';
 import { FilterData, MovieListData } from '../../model/movie-list-data.model';
-import { ToggleWishListData } from '../../model/toggle-wishlist-data.model';
 import { MovieListService } from '../../services/movie-list.service';
 
 @Component({

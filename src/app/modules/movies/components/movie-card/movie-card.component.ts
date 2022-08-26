@@ -1,8 +1,7 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 import { MovieConstants } from '../../constants/movies.constants';
 import { MovieListData } from '../../model/movie-list-data.model';
-import { ToggleWishListData } from '../../model/toggle-wishlist-data.model';
 import { WishlistService } from '../../services/wishlist.service';
 @Component({
   selector: 'app-movie-card',
@@ -12,37 +11,26 @@ import { WishlistService } from '../../services/wishlist.service';
 export class MovieCardComponent implements OnInit {
 
   @Input() movie!: MovieListData;
-  @Output() movieDataEvent = new EventEmitter();
-
+  
   imgSrc = MovieConstants.imgSrc;
-  movieInWishlist !: boolean ;
+  isMovieInWishlist : boolean = false;
   addMovieBtn = MovieConstants.addToWishListBtn;
   removeMovieBtn = MovieConstants.removeFromWishListBtn;
-  listData !: ToggleWishListData;
+  listData : MovieListData[] = [];
 
   constructor(public wishlist: WishlistService) { }
   ngOnInit(): void {
-    
+    this.wishlist.setWishListData();
+    this.isMovieInWishlist = this.wishlist.isInWishList(this.movie)
   }
 
-  ngAfterContentChecked() {
-    this.isInWishList(this.movie)
-  }
   addToWishlist(movie: MovieListData) {
     this.wishlist.addToLocalStorage(movie);
-    this.isInWishList(this.movie)
-    console.log(this.movieInWishlist)
+      this.isMovieInWishlist = true;
   }
   removeFromWishlist(movie: MovieListData) {
     this.wishlist.removeFromLocalStorage(movie);
-    this.isInWishList(this.movie)
-    console.log(this.movieInWishlist)
+    this.isMovieInWishlist = false;
   }
 
-  isInWishList(movie: MovieListData) {
-    this.wishlist.getWishListData().forEach((data: MovieListData) => {
-      this.movieInWishlist = data.showId === movie.showId
-    })
-    
-  }
 }

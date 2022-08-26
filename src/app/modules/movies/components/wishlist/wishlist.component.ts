@@ -7,5 +7,4 @@ import { MovieListData } from '../../model/movie-list-data.model';
 })
 export class WishlistComponent {
   @Input() movie!: MovieListData;  
-  constructor() { }  
 }

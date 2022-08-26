@@ -52,6 +52,11 @@ export class MovieListService {
       return this.filters.type ? this.filters.type === movie.type : this.filters.search ? word.startsWith(searchWord) : false;
     }
   }
+
+  sortMovies(movies: MovieListData[]) {
+    return movies.sort((a, b) => (a.releaseYear < b.releaseYear ? -1 : 1));
+  }
+  
 }
 
 
