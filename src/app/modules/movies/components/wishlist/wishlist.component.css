@@ -6,3 +6,9 @@ button{
     justify-content: center;
     text-align: center;
 }
+
+img{
+    width: 15%;
+    height: 25%;
+    margin: 5px;
+}

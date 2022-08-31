@@ -1,6 +1,5 @@
-import { AfterContentChecked, Component, OnInit } from '@angular/core';
+import { AfterContentChecked, Component, ComponentFactoryResolver, ElementRef, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
 import { Observable } from 'rxjs';
-import { NewAddedMovie } from '../add-movie-form/models/new-movie.model';
 
 import { FilterData, MovieListData } from './model/movie-list-data.model';
 import { MovieListService } from './services/movie-list.service';
@@ -11,18 +10,23 @@ import { WishlistService } from './services/wishlist.service';
   templateUrl: './movies.component.html',
   styleUrls: ['./movies.component.css']
 })
-export class MoviesComponent implements OnInit, AfterContentChecked {
+export class MoviesComponent implements OnInit, AfterContentChecked{
+  @ViewChild('movies') displayWishList!: ElementRef<any>;
+  @ViewChild("wishlist", { read: ViewContainerRef })
+  wishlistComponent!: ViewContainerRef;
+
   wishListData!: MovieListData[] ;
   movies$ !: Observable<MovieListData[]>;
   count = 0;
   filters!: FilterData;
   removedMovieTitle!: string;
- 
-  constructor(public wishlist: WishlistService, public movieListService: MovieListService) { }
+  buttonClicked = false;
+   
+  constructor(public wishlist: WishlistService, public movieListService: MovieListService, private cfr: ComponentFactoryResolver) { }
   ngOnInit(): void {
     this.movies$ = this.movieListService.getAllMovies();
     this.wishListData = this.wishlist.getWishListData();
-    this.count = this.wishListData.length;
+    this.count =  this.wishlist.getWishListData().length;
   }
 
   handleFilters(filter: FilterData) {
@@ -30,17 +34,27 @@ export class MoviesComponent implements OnInit, AfterContentChecked {
     this.movieListService.setFilter(this.filters)
   }
 
-  removeMovieFromWishList(title: string) {
-    this.removedMovieTitle = title;
-    this.wishlist.removeFromLocalStorage(title);
-  }
+  async lazyLoadedList() {
+   this.buttonClicked = this.buttonClicked ? false: true;
+    if (this.buttonClicked) {
+      this.wishlistComponent.clear()
+    const { WishlistCardComponent } = await import('./components/wishlist-card/wishlist-card.component');
 
-  addMovie() {
-    console.log('clicked button');
-  }
+    const componentFactory = this.cfr.resolveComponentFactory(WishlistCardComponent);
+    const componentInstance = this.wishlistComponent.createComponent(componentFactory);
+    }
+    else {
+      this.wishlistComponent.clear()
+    }
+    
+}
+
  
+
+  
   ngAfterContentChecked(): void {
     this.wishListData = this.wishlist.getWishListData();
     this.count = this.wishlist.getWishListData().length
   } 
+  
 }

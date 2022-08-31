@@ -1,0 +1,16 @@
+.wishlist-card{
+    width: fit-content;
+    min-width: 200px;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    background-color:floralwhite;
+    color: black;
+    border-radius: 5px; 
+    font-size:12px;
+    font-weight: 500;  
+    height: fit-content;
+    padding: 5px;
+    position: relative;
+    z-index: 3;
+}

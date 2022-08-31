@@ -23,8 +23,4 @@ export class NewMovieService {
   getAddedMovies() : NewAddedMovie[] | [] {
     return JSON.parse(localStorage.getItem('added-movie') || '[]');
   }
-
-
-
-
 }

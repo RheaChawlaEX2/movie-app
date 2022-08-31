@@ -1,23 +1,17 @@
 <div class="row">
     <div id="movieList">
-        <button id="list">
+        <button id="list" (click)="lazyLoadedList()">
             <ng-container *ngIf="count === 0; else wishlistCount">
-                <option id="wishlistOption">WishList</option>
+              <span>WishList</span> 
             </ng-container>
             <ng-template #wishlistCount>
-                <option id="wishlistOption">WishList ({{count}})</option>
+               <span>WishList ({{count}})</span>
             </ng-template>
         </button>
-        <ng-container *ngFor="let movie of wishListData">
-           <div class="card ">
-                <app-wishlist (deleteMovieEmitter)="removeMovieFromWishList($event)" class="wishlist-card" *ngIf="wishListData" [movie]="movie"></app-wishlist>
-            </div>
-        </ng-container>
+        <ng-template #wishlist></ng-template>
+        
     </div>
-    <app-movie-filter [movies]="wishListData" (filterEvent)="handleFilters($event)"></app-movie-filter>
-    <button (click)="addMovie()" routerLink="movie-form" class="button" id="addMovieBtn">Add Movie</button>
-    <router-outlet></router-outlet>
-    
+    <app-movie-filter [movies]="wishListData" (filterEvent)="handleFilters($event)"></app-movie-filter>    
 </div>
 <ng-container *ngIf="movies$ | async as data">
     <app-movie-card-list [movies]="data" class="row" [removed]="removedMovieTitle" [filters]="filters" >

@@ -8,6 +8,7 @@ import { MovieFilterComponent } from './components/movie-filter/movie-filter.com
 import { WishlistComponent } from './components/wishlist/wishlist.component';
 import { MoviesRoutingModule } from './movies-routing.module';
 import { MoviesComponent } from './movies.component';
+import { WishlistCardComponent } from './components/wishlist-card/wishlist-card.component';
 
 @NgModule({
   declarations: [
@@ -16,6 +17,8 @@ import { MoviesComponent } from './movies.component';
     WishlistComponent,
     MoviesComponent,
     MovieFilterComponent,
+    WishlistCardComponent,
+ 
 
   ],
   imports: [

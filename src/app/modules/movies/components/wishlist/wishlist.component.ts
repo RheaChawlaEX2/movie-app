@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { MovieConstants } from '../../constants/movies.constants';
 import { MovieListData } from '../../model/movie-list-data.model';
 import { EventService } from '../../services/event.service';
 @Component({
@@ -9,6 +10,8 @@ import { EventService } from '../../services/event.service';
 export class WishlistComponent {
   @Input() movie!: MovieListData;  
   @Output() deleteMovieEmitter = new EventEmitter();
+
+  imgSrc = MovieConstants.imgSrc;
 
   constructor(public eventService: EventService){}
 
