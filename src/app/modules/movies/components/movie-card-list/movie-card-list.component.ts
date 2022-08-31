@@ -1,6 +1,9 @@
-import { AfterContentChecked, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { AfterContentChecked, AfterViewChecked, Component, EventEmitter, Input, OnInit, Output, ViewChildrenDecorator } from '@angular/core';
+import { NewAddedMovie } from 'src/app/modules/add-movie-form/models/new-movie.model';
+import { NewMovieService } from 'src/app/modules/add-movie-form/services/new-movie.service';
 
 import { FilterData, MovieListData } from '../../model/movie-list-data.model';
+import { EventService } from '../../services/event.service';
 import { MovieListService } from '../../services/movie-list.service';
 
 @Component({
@@ -8,17 +11,21 @@ import { MovieListService } from '../../services/movie-list.service';
   templateUrl: './movie-card-list.component.html',
   styleUrls: ['./movie-card-list.component.css']
 })
-export class MovieCardListComponent implements OnInit, AfterContentChecked {
+export class MovieCardListComponent implements OnInit, AfterContentChecked, AfterViewChecked {
   
   @Input() movies: MovieListData[] = [];
   @Input() filters !: FilterData;
+  @Input() removed!: string;
   @Output() toggleListEvent = new EventEmitter;
   movieArray: MovieListData[] = [];
+  newMovieArray: NewAddedMovie[] = [];
+  clickedStatus = false;
 
-  constructor(public movieListService: MovieListService) { }
+  constructor(public movieListService: MovieListService, private newMovieService : NewMovieService, public event : EventService) { }
   ngOnInit() {
     this.movieListService.setMovieList(this.movies);
     this.movieArray = this.movies;
+    this.newMovieArray = this.newMovieService.getAddedMovies();
   }
   ngAfterContentChecked() {
     if (this.filters?.order === 'asc') {
@@ -31,6 +38,17 @@ export class MovieCardListComponent implements OnInit, AfterContentChecked {
     }
     else {
       this.movieArray = this.movies;
+    } 
+    if (this.removed) {
+      this.event.isClicked();
+      this.clickedStatus = this.event.getStatus();
     }
+
   }
+
+  ngAfterViewChecked(): void {
+   
+  }
+
+  
 }

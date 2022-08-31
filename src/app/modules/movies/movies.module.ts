@@ -6,6 +6,7 @@ import { MovieCardListComponent } from './components/movie-card-list/movie-card-
 import { MovieCardComponent } from './components/movie-card/movie-card.component';
 import { MovieFilterComponent } from './components/movie-filter/movie-filter.component';
 import { WishlistComponent } from './components/wishlist/wishlist.component';
+import { MoviesRoutingModule } from './movies-routing.module';
 import { MoviesComponent } from './movies.component';
 
 @NgModule({
@@ -19,9 +20,10 @@ import { MoviesComponent } from './movies.component';
   ],
   imports: [
     CommonModule,
+    MoviesRoutingModule
   ],
   exports: [
     MoviesComponent,
   ],
 })
-export class MoviesModule { }
+export class MoviesModule {}

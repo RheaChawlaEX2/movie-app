@@ -30,8 +30,13 @@ export class MovieListService {
     this.filters.type = filters.type;
     this.filters.order = filters.order;
   }
+
+  getMovieList() {
+    return JSON.parse(localStorage.getItem('movieList') || '[]');
+  }
   setMovieList(movies: MovieListData[]) {
     this.movieList = movies;
+    localStorage.setItem('movieList', JSON.stringify(this.movieList))
   }
   applyFilters() {
     let newList: MovieListData[] = [];

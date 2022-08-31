@@ -1,0 +1,38 @@
+<div class="container">
+  <form class="form" [formGroup]="myForm" (ngSubmit)="onSubmit(myForm.value)">
+    <label>Image:  </label> 
+    <div><img [src]="imgSrc" *ngIf="imgSrc"></div>
+    <input formControlName="file" type='file' id="imageUpload" accept=".png, .jpg, .jpeg" #fileInput
+      (change)="uploadFile($event)" />
+    <div>
+      <label>
+        Title:
+        <input formControlName="title" placeholder="Title">
+      </label>
+    </div>
+    <div>
+      <label>
+        Release Year :
+        <input type="year" formControlName="releaseYear" placeholder="Release Year">
+      </label>
+    </div>
+    <div>
+      <label>
+        Rating:
+        <input formControlName="rating" placeholder="Rating">
+      </label>
+    </div>
+    <div>
+      <label>
+        Type:
+      </label>
+      <select formControlName="type">
+        <option value="TV Show">TV Show</option>
+        <option value="Movie">Movie</option>
+      </select>
+    </div>
+    <button class="btn button" type="submit">Add</button>
+    <button (click)="setCounter()" style="right : 15%; position:absolute" class="btn btn-sm">Add Another</button>
+  </form>
+
+</div>

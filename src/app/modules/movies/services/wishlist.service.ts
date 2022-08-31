@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { NewAddedMovie } from '../../add-movie-form/models/new-movie.model';
 
 import { MovieListData } from '../model/movie-list-data.model';
 
@@ -8,6 +9,7 @@ import { MovieListData } from '../model/movie-list-data.model';
 export class WishlistService  {
   constructor() { }
   wishList: MovieListData[] = [];
+  newAddedMovie: NewAddedMovie[] = [];
   movieCount: number = 0;
   inList: boolean = false;
   
@@ -23,13 +25,22 @@ export class WishlistService  {
   
   isInWishList(movie: MovieListData) :boolean{
     let list = this.wishList.filter((data: MovieListData) => {
-      return data.showId === movie.showId;
+      return data?.showId === movie?.showId;
     })
     if (list.length > 0) {
       return true
     }
     return false;
   }
+
+  // addNewToLocalStorage(newMovie: NewAddedMovie) {
+  //   if (!this.isInWishList(newMovie)) {
+  //     this.newAddedMovie.push(newMovie); 
+  //     localStorage.setItem('wishListData', JSON.stringify(this.newAddedMovie));
+  //     this.inList = true;
+  //   }
+    
+  // }
 
   addToLocalStorage(movie: MovieListData) { 
     if (!this.isInWishList(movie)) {
@@ -38,10 +49,10 @@ export class WishlistService  {
       this.inList = true;
     }
   }
-  removeFromLocalStorage(movie: MovieListData) {
+  removeFromLocalStorage(title: string) {
     localStorage.removeItem('wishListData')
     this.wishList = this.wishList.filter((data: MovieListData) => {
-      return movie.showId !== data.showId;
+      return title !== data.title;
     })
     this.inList = false
     localStorage.setItem('wishListData', JSON.stringify(this.wishList));

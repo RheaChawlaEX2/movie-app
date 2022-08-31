@@ -16,8 +16,4 @@ export interface FilterData{
     order: string,    
 }
 
-// export interface FilterConditions {
-//     condition: boolean;
-//     operation: boolean;
-// }
 

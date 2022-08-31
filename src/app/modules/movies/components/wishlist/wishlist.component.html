@@ -1,7 +1,8 @@
 
-<li>
+<div class="">
     <span>{{movie.releaseYear}} </span> 
     <span>{{movie.title}}</span> 
- </li>
+    <button (click)="removeFromWishList(movie.title)" class="btn btn-danger btn-sm">&times;</button>
+</div>
          
           

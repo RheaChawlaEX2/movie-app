@@ -4,6 +4,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { MoviesModule } from './modules/movies/movies.module';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -15,6 +16,7 @@ import { MoviesModule } from './modules/movies/movies.module';
     AppRoutingModule,
     HttpClientModule,
     MoviesModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
