@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { MovieListData } from '../../movies/model/movie-list-data.model';
 import { NewAddedMovie } from '../models/new-movie.model';
 
 @Injectable({
@@ -6,9 +7,9 @@ import { NewAddedMovie } from '../models/new-movie.model';
 })
 export class NewMovieService {
 
-  newMovie: NewAddedMovie[] = [];
+  newMovie: MovieListData[] = [];
 
-  addNewMovies(movie:NewAddedMovie[] ) {
+  addNewMovies(movie:MovieListData[] ) {
     if (movie.length > 1) {
       this.newMovie = movie;
     }

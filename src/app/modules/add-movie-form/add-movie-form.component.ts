@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { MovieListData } from '../movies/model/movie-list-data.model';
 import { NewAddedMovie } from './models/new-movie.model';
 import { NewMovieService } from './services/new-movie.service';
 
@@ -12,7 +13,7 @@ export class AddMovieFormComponent implements OnInit {
 
   constructor(public newMovieService : NewMovieService, private router: Router) { }
   formCounter: any = new Array(1);
-  newMovies : NewAddedMovie[] = []
+  newMovies : MovieListData[] = []
   ngOnInit(): void {
   }
 
@@ -20,7 +21,7 @@ export class AddMovieFormComponent implements OnInit {
     this.formCounter = new Array(count);
   }
 
-  addNewMovie(movie: NewAddedMovie) {
+  addNewMovie(movie: MovieListData) {
     this.newMovies.push(movie);
   }
 
