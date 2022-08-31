@@ -46,12 +46,7 @@ export class MoviesComponent implements OnInit, AfterContentChecked{
     else {
       this.wishlistComponent.clear()
     }
-    
-}
-
- 
-
-  
+} 
   ngAfterContentChecked(): void {
     this.wishListData = this.wishlist.getWishListData();
     this.count = this.wishlist.getWishListData().length
