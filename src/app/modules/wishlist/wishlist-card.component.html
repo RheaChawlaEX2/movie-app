@@ -1,3 +1,4 @@
+
 <ng-container *ngFor="let movie of wishListData">
     <div class="card " id="movies" #movies>
          <app-wishlist (deleteMovieEmitter)="removeMovieFromWishList($event)" class="wishlist-card" *ngIf="wishListData" [movie]="movie"></app-wishlist>

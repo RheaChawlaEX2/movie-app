@@ -1,14 +1,14 @@
-import { AfterContentChecked, Component, OnInit } from '@angular/core';
-import { MovieListData } from '../../model/movie-list-data.model';
-import { WishlistService } from '../../services/wishlist.service';
+import { Component } from '@angular/core';
+import { MovieListData } from 'src/app/features/movies/model/movie-list-data.model';
+import { WishlistService } from 'src/app/features/movies/services/wishlist.service';
+
 
 @Component({
   selector: 'app-wishlist-card',
   templateUrl: './wishlist-card.component.html',
   styleUrls: ['./wishlist-card.component.css']
 })
-export class WishlistCardComponent implements OnInit, AfterContentChecked {
-
+export class WishlistCardComponent {
   wishListData!: MovieListData[];
   count = 0;
   removedMovieTitle!: string;

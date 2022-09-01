@@ -1,5 +1,5 @@
 import { AfterContentChecked, Component, Input, OnInit } from '@angular/core';
-import { NewAddedMovie } from 'src/app/modules/add-movie-form/models/new-movie.model';
+import { NewAddedMovie } from 'src/app/features/add-movie-form/models/new-movie.model';
 
 import { MovieConstants } from '../../constants/movies.constants';
 import { MovieListData } from '../../model/movie-list-data.model';

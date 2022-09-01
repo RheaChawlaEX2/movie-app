@@ -1,6 +1,6 @@
 import { AfterContentChecked, AfterViewChecked, Component, EventEmitter, Input, OnInit, Output, ViewChildrenDecorator } from '@angular/core';
-import { NewAddedMovie } from 'src/app/modules/add-movie-form/models/new-movie.model';
-import { NewMovieService } from 'src/app/modules/add-movie-form/services/new-movie.service';
+import { NewAddedMovie } from 'src/app/features/add-movie-form/models/new-movie.model';
+import { NewMovieService } from 'src/app/features/add-movie-form/services/new-movie.service';
 
 import { FilterData, MovieListData } from '../../model/movie-list-data.model';
 import { EventService } from '../../services/event.service';

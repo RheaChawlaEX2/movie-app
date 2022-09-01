@@ -1,5 +1,6 @@
-import { AfterContentChecked, Component, ComponentFactoryResolver, ElementRef, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
+import { AfterContentChecked, Compiler, Component, ComponentFactoryResolver, ElementRef, Inject, Injector, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
 import { Observable } from 'rxjs';
+import { WishlistCardComponent } from '../../modules/wishlist/wishlist-card.component';
 
 import { FilterData, MovieListData } from './model/movie-list-data.model';
 import { MovieListService } from './services/movie-list.service';
@@ -21,8 +22,10 @@ export class MoviesComponent implements OnInit, AfterContentChecked{
   filters!: FilterData;
   removedMovieTitle!: string;
   buttonClicked = false;
+  myComponent: any;
+  // loaded!: boolean;
    
-  constructor(public wishlist: WishlistService, public movieListService: MovieListService, private cfr: ComponentFactoryResolver) { }
+  constructor(public wishlist: WishlistService, public movieListService: MovieListService, private cfr: ComponentFactoryResolver, private compiler: Compiler, private inject: Injector) { }
   ngOnInit(): void {
     this.movies$ = this.movieListService.getAllMovies();
     this.wishListData = this.wishlist.getWishListData();
@@ -34,18 +37,20 @@ export class MoviesComponent implements OnInit, AfterContentChecked{
     this.movieListService.setFilter(this.filters)
   }
 
-  async lazyLoadedList() {
-   this.buttonClicked = this.buttonClicked ? false: true;
+  lazyLoadedList() {
+    this.buttonClicked = this.buttonClicked ? false : true;
     if (this.buttonClicked) {
-      this.wishlistComponent.clear()
-    const { WishlistCardComponent } = await import('./components/wishlist-card/wishlist-card.component');
-
-    const componentFactory = this.cfr.resolveComponentFactory(WishlistCardComponent);
-    const componentInstance = this.wishlistComponent.createComponent(componentFactory);
+      import('../../modules/wishlist/wishlist-card.module').then(({ WishlistCardModule }) => {
+        this.compiler.compileModuleAsync(WishlistCardModule).then(moduleFactory => {
+          const moduleRef = moduleFactory.create(this.inject);
+          const componentFactory = moduleRef.instance.resolveComponent();
+          const  instance  = this.wishlistComponent.createComponent(componentFactory,undefined,moduleRef.injector);
+        });
+      });
     }
     else {
       this.wishlistComponent.clear()
-    }
+    } 
 } 
   ngAfterContentChecked(): void {
     this.wishListData = this.wishlist.getWishListData();
