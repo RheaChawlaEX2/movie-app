@@ -30,3 +30,13 @@
     text-align: right;
 }
 
+#wishlist{
+    border-radius: 5px; 
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    /* padding: 5px; */
+    position: relative;
+    z-index: 3;
+    background-color: white
+}

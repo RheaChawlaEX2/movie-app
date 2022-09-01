@@ -3,8 +3,8 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { WishlistCardComponent } from './wishlist-card.component';
 
 describe('WishlistComponent', () => {
-  let component: WishlistCardComponent;
-  let fixture: ComponentFixture<WishlistCardComponent>;
+  let component: WishlistCardComponent ;
+  let fixture: ComponentFixture<WishlistCardComponent >;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -14,7 +14,7 @@ describe('WishlistComponent', () => {
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(WishlistCardComponent);
+    fixture = TestBed.createComponent(WishlistCardComponent );
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

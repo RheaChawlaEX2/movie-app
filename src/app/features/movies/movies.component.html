@@ -11,7 +11,10 @@
         <!-- <div *ngIf="loaded">
             <ng-container *ngComponentOutlet="myComponent"></ng-container>
         </div> -->
-        <ng-template #wishlist></ng-template>
+        <div id="wishlist">
+            <ng-template #wishlist ></ng-template>
+        </div>
+        
         
     </div>
     <app-movie-filter [movies]="wishListData" (filterEvent)="handleFilters($event)"></app-movie-filter>    

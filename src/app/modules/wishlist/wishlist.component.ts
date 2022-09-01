@@ -4,11 +4,11 @@ import { WishlistService } from 'src/app/features/movies/services/wishlist.servi
 
 
 @Component({
-  selector: 'app-wishlist-card',
-  templateUrl: './wishlist-card.component.html',
-  styleUrls: ['./wishlist-card.component.css']
+  selector: 'app-wishlist',
+  templateUrl: './wishlist.component.html',
+  styleUrls: ['./wishlist.component.css']
 })
-export class WishlistCardComponent {
+export class WishlistComponent {
   wishListData!: MovieListData[];
   count = 0;
   removedMovieTitle!: string;

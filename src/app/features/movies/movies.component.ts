@@ -1,6 +1,5 @@
-import { AfterContentChecked, Compiler, Component, ComponentFactoryResolver, ElementRef, Inject, Injector, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
+import { AfterContentChecked, Compiler, Component, ComponentFactoryResolver, ElementRef, Injector, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
 import { Observable } from 'rxjs';
-import { WishlistCardComponent } from '../../modules/wishlist/wishlist-card.component';
 
 import { FilterData, MovieListData } from './model/movie-list-data.model';
 import { MovieListService } from './services/movie-list.service';
@@ -38,10 +37,10 @@ export class MoviesComponent implements OnInit, AfterContentChecked{
   }
 
   lazyLoadedList() {
-    this.buttonClicked = this.buttonClicked ? false : true;
+    this.buttonClicked = !this.buttonClicked;
     if (this.buttonClicked) {
-      import('../../modules/wishlist/wishlist-card.module').then(({ WishlistCardModule }) => {
-        this.compiler.compileModuleAsync(WishlistCardModule).then(moduleFactory => {
+      import('../../modules/wishlist/wishlist.module').then(({ WishlistModule }) => {
+        this.compiler.compileModuleAsync(WishlistModule).then(moduleFactory => {
           const moduleRef = moduleFactory.create(this.inject);
           const componentFactory = moduleRef.instance.resolveComponent();
           const  instance  = this.wishlistComponent.createComponent(componentFactory,undefined,moduleRef.injector);

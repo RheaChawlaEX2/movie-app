@@ -4,11 +4,11 @@ import { MovieListData } from 'src/app/features/movies/model/movie-list-data.mod
 import { EventService } from 'src/app/features/movies/services/event.service';
 
 @Component({
-  selector: 'app-wishlist',
-  templateUrl: './wishlist.component.html',
-  styleUrls: ['./wishlist.component.css']
+  selector: 'app-wishlist-card',
+  templateUrl: './wishlist-card.component.html',
+  styleUrls: ['./wishlist-card.component.css']
 })
-export class WishlistComponent {
+export class WishlistCardComponent {
 
   @Input() movie!: MovieListData;  
   @Output() deleteMovieEmitter = new EventEmitter();
