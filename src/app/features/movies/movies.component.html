@@ -2,24 +2,22 @@
     <div id="movieList">
         <button id="list" (click)="lazyLoadedList()">
             <ng-container *ngIf="count === 0; else wishlistCount">
-              <span>WishList</span> 
+                <span>WishList</span>
             </ng-container>
             <ng-template #wishlistCount>
-               <span>WishList ({{count}})</span>
+                <span>WishList ({{count}})</span>
             </ng-template>
         </button>
-        <!-- <div *ngIf="loaded">
-            <ng-container *ngComponentOutlet="myComponent"></ng-container>
-        </div> -->
+
         <div id="wishlist">
-            <ng-template #wishlist ></ng-template>
+            <ng-template #wishlist></ng-template>
         </div>
-        
-        
+
+
     </div>
-    <app-movie-filter [movies]="wishListData" (filterEvent)="handleFilters($event)"></app-movie-filter>    
+    <app-movie-filter [movies]="wishListData" (filterEvent)="handleFilters($event)"></app-movie-filter>
 </div>
 <ng-container *ngIf="movies$ | async as data">
-    <app-movie-card-list [movies]="data" class="row" [removed]="removedMovieTitle" [filters]="filters" >
+    <app-movie-card-list [movies]="data" class="row" [removed]="removedMovieTitle" [filters]="filters">
     </app-movie-card-list>
 </ng-container>

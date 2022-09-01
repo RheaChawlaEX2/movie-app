@@ -22,7 +22,6 @@ export class MoviesComponent implements OnInit, AfterContentChecked{
   removedMovieTitle!: string;
   buttonClicked = false;
   myComponent: any;
-  // loaded!: boolean;
    
   constructor(public wishlist: WishlistService, public movieListService: MovieListService, private cfr: ComponentFactoryResolver, private compiler: Compiler, private inject: Injector) { }
   ngOnInit(): void {
