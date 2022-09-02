@@ -1,5 +1,4 @@
-import { AfterContentChecked, AfterViewChecked, Component, EventEmitter, Input, OnInit, Output, ViewChildrenDecorator } from '@angular/core';
-import { NewAddedMovie } from 'src/app/features/add-movie-form/models/new-movie.model';
+import { AfterContentChecked, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { NewMovieService } from 'src/app/features/add-movie-form/services/new-movie.service';
 
 import { FilterData, MovieListData } from '../../model/movie-list-data.model';
@@ -11,8 +10,8 @@ import { MovieListService } from '../../services/movie-list.service';
   templateUrl: './movie-card-list.component.html',
   styleUrls: ['./movie-card-list.component.css']
 })
-export class MovieCardListComponent implements OnInit, AfterContentChecked, AfterViewChecked {
-  
+export class MovieCardListComponent implements OnInit, AfterContentChecked {
+
   @Input() movies: MovieListData[] = [];
   @Input() filters !: FilterData;
   @Input() removed!: string;
@@ -21,13 +20,12 @@ export class MovieCardListComponent implements OnInit, AfterContentChecked, Afte
   newMovieArray!: MovieListData[];
   clickedStatus = false;
 
-  constructor(public movieListService: MovieListService, private newMovieService : NewMovieService, public event : EventService) { }
+  constructor(public movieListService: MovieListService, private newMovieService: NewMovieService, public event: EventService) { }
   ngOnInit() {
     this.newMovieArray = this.newMovieService.getAddedMovies();
-    this.movieListService.setMovieList(this.movies.concat(this.newMovieArray));
+    this.movies = this.newMovieArray.concat(this.movies)
+    this.movieListService.setMovieList(this.movies);
     this.movieArray = this.movieListService.getMovieList();
-    
-    console.log(this.newMovieArray)
   }
   ngAfterContentChecked() {
     if (this.filters?.order === 'asc') {
@@ -40,17 +38,11 @@ export class MovieCardListComponent implements OnInit, AfterContentChecked, Afte
     }
     else {
       this.movieArray = this.movies;
-    } 
+    }
     if (this.removed) {
       this.event.isClicked();
       this.clickedStatus = this.event.getStatus();
     }
-
   }
 
-  ngAfterViewChecked(): void {
-   
-  }
-
-  
 }

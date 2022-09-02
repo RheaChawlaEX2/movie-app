@@ -1,29 +1,25 @@
 import { Injectable } from '@angular/core';
-import { NewAddedMovie } from '../../add-movie-form/models/new-movie.model';
 
 import { MovieListData } from '../model/movie-list-data.model';
 
 @Injectable({
   providedIn: 'root'
 })
-export class WishlistService  {
-  constructor() { }
+export class WishlistService {
+  constructor() {
+    this.wishList = this.getWishListData();
+  }
   wishList: MovieListData[] = [];
-  newAddedMovie: NewAddedMovie[] = [];
   movieCount: number = 0;
   inList: boolean = false;
-  
 
-  
   setWishListData() {
     this.wishList = this.getWishListData()
   }
-
   getWishListData(): MovieListData[] {
     return JSON.parse(localStorage.getItem('wishListData') || '[]');
   }
-  
-  isInWishList(movie: MovieListData) :boolean{
+  isInWishList(movie: MovieListData): boolean {
     let list = this.wishList.filter((data: MovieListData) => {
       return data?.showId === movie?.showId;
     })
@@ -32,15 +28,14 @@ export class WishlistService  {
     }
     return false;
   }
-
-  addToLocalStorage(movie: MovieListData) { 
+  addToLocalStorage(movie: MovieListData) {
     if (!this.isInWishList(movie)) {
-      this.wishList.push(movie); 
+      this.wishList.push(movie);
       localStorage.setItem('wishListData', JSON.stringify(this.wishList));
       this.inList = true;
     }
   }
-  removeFromLocalStorage(movie:MovieListData) {
+  removeFromLocalStorage(movie: MovieListData) {
     localStorage.removeItem('wishListData')
     this.wishList = this.wishList.filter((data: MovieListData) => {
       return movie.showId !== data.showId;

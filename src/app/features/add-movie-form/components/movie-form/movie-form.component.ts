@@ -3,8 +3,6 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { Router } from '@angular/router';
 import { MovieListData } from 'src/app/features/movies/model/movie-list-data.model';
 import { MovieListService } from 'src/app/features/movies/services/movie-list.service';
-import { WishlistService } from 'src/app/features/movies/services/wishlist.service';
-import { NewAddedMovie } from '../../models/new-movie.model';
 
 @Component({
   selector: 'app-movie-form',
@@ -64,7 +62,7 @@ export class MovieFormComponent implements OnInit {
     }    
   }
 
-  onSubmit(data: NewAddedMovie) {
+  onSubmit(data: MovieListData) {
 
     if (!this.myForm.valid) {
       alert('Please fill all the required fields to add a movie!');

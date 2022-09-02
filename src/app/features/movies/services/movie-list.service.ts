@@ -32,10 +32,12 @@ export class MovieListService {
   }
 
   getMovieList() {
+    
     return JSON.parse(localStorage.getItem('movieList') || '[]');
   }
   setMovieList(movies: MovieListData[]) {
     this.movieList = movies;
+    console.log(this.movieList)
     localStorage.setItem('movieList', JSON.stringify(this.movieList))
   }
 
