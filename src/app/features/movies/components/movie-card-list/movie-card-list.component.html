@@ -2,7 +2,7 @@
 
 <ng-container class="container" *ngIf="newMovieArray">
     <div class="col-6 col-md-3 result" *ngFor="let movie of newMovieArray">
-        <app-movie-card [newMovie]="movie" [removedMovie]="clickedStatus"></app-movie-card>
+        <app-movie-card [newMovie]="movie" ></app-movie-card>
     </div>
 </ng-container>
 

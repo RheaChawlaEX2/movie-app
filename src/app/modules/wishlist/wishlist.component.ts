@@ -19,9 +19,9 @@ export class WishlistComponent {
     this.count = this.wishListData.length;
   }
 
-  removeMovieFromWishList(title: string) {
-    this.removedMovieTitle = title;
-    this.wishlist.removeFromLocalStorage(title);
+  removeMovieFromWishList(movie : MovieListData) {
+    this.removedMovieTitle = movie.title;
+    this.wishlist.removeFromLocalStorage(movie);
   }
 
   ngAfterContentChecked(): void {

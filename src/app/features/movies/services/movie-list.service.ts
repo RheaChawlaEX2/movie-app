@@ -38,6 +38,14 @@ export class MovieListService {
     this.movieList = movies;
     localStorage.setItem('movieList', JSON.stringify(this.movieList))
   }
+
+  addSingleMovie(movie: MovieListData) {
+    
+    this.movieList.push(movie);
+    console.log("hi",this.movieList)
+    localStorage.setItem('movieList', JSON.stringify(this.movieList))
+  }
+
   applyFilters() {
     let newList: MovieListData[] = [];
     this.movieList.forEach((movie : MovieListData) => {    

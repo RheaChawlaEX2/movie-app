@@ -1,6 +1,9 @@
 import { ChangeDetectorRef, Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { MovieListData } from 'src/app/features/movies/model/movie-list-data.model';
+import { MovieListService } from 'src/app/features/movies/services/movie-list.service';
+import { WishlistService } from 'src/app/features/movies/services/wishlist.service';
 import { NewAddedMovie } from '../../models/new-movie.model';
 
 @Component({
@@ -19,13 +22,14 @@ export class MovieFormComponent implements OnInit {
     rating:new FormControl()
 
   });
-  formData!: NewAddedMovie;
+  formData!: MovieListData;
 
   @Output() counterEmitter = new EventEmitter();
   @Output() newMovieDataEmitter = new EventEmitter();
   counter = 1;
-  showId = 0;
-  constructor(private fb: FormBuilder, private cd: ChangeDetectorRef, public router: Router) { }
+  // showId = 0;
+  showIdExt = 's';
+  constructor(private fb: FormBuilder, private cd: ChangeDetectorRef, public router: Router, private movieList: MovieListService) { }
 
   ngOnInit(): void {
     this.myForm = this.fb.group({
@@ -68,7 +72,7 @@ export class MovieFormComponent implements OnInit {
     else {
       console.log(data);
       this.formData = {
-        showId: ++this.showId,
+        showId: `${this.showIdExt}${++this.movieList.getMovieList().length}`,
         imgSrc: this.imgSrc,
         title: data.title,
         releaseYear: data.releaseYear,

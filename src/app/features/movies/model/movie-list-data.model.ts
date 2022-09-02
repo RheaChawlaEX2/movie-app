@@ -7,7 +7,7 @@ export interface MovieListData {
     cast?: string,
     country?: string,
     dateAdded?: string,
-    releaseYear: string,
+    releaseYear: number,
     rating: string
 }
 

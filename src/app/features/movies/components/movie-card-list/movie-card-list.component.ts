@@ -18,14 +18,16 @@ export class MovieCardListComponent implements OnInit, AfterContentChecked, Afte
   @Input() removed!: string;
   @Output() toggleListEvent = new EventEmitter;
   movieArray: MovieListData[] = [];
-  newMovieArray: NewAddedMovie[] = [];
+  newMovieArray!: MovieListData[];
   clickedStatus = false;
 
   constructor(public movieListService: MovieListService, private newMovieService : NewMovieService, public event : EventService) { }
   ngOnInit() {
-    this.movieListService.setMovieList(this.movies);
-    this.movieArray = this.movies;
     this.newMovieArray = this.newMovieService.getAddedMovies();
+    this.movieListService.setMovieList(this.movies.concat(this.newMovieArray));
+    this.movieArray = this.movieListService.getMovieList();
+    
+    console.log(this.newMovieArray)
   }
   ngAfterContentChecked() {
     if (this.filters?.order === 'asc') {

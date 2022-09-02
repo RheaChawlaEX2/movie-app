@@ -1,18 +1,7 @@
 img{
     width: 250px;
-    height: auto ;
+    height: 200px ;
     border-radius: 20px;
-}
-
-
-.button{
-    background-color: black;
-    color: aquamarine;
-    width: 200px;
-    padding: 0 20px;
-    border-radius: 3pc;
-    justify-content: center;
-    margin: 50px 20px 5px 50px ;
 }
 
 input{

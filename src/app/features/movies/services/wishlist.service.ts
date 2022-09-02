@@ -33,15 +33,6 @@ export class WishlistService  {
     return false;
   }
 
-  // addNewToLocalStorage(newMovie: NewAddedMovie) {
-  //   if (!this.isInWishList(newMovie)) {
-  //     this.newAddedMovie.push(newMovie); 
-  //     localStorage.setItem('wishListData', JSON.stringify(this.newAddedMovie));
-  //     this.inList = true;
-  //   }
-    
-  // }
-
   addToLocalStorage(movie: MovieListData) { 
     if (!this.isInWishList(movie)) {
       this.wishList.push(movie); 
@@ -49,10 +40,10 @@ export class WishlistService  {
       this.inList = true;
     }
   }
-  removeFromLocalStorage(title: string) {
+  removeFromLocalStorage(movie:MovieListData) {
     localStorage.removeItem('wishListData')
     this.wishList = this.wishList.filter((data: MovieListData) => {
-      return title !== data.title;
+      return movie.showId !== data.showId;
     })
     this.inList = false
     localStorage.setItem('wishListData', JSON.stringify(this.wishList));

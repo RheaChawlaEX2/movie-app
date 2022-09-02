@@ -1,8 +1,13 @@
 <div class="">
-    <img [src]="imgSrc">
+    <ng-container *ngIf="movie.imgSrc; else skeleton">
+        <img [src]="movie.imgSrc">
+    </ng-container>
+    <ng-template #skeleton>
+        <img [src]="imgSrc">
+    </ng-template>
     <span>{{movie.releaseYear}} </span> 
     <span>{{movie.title}}</span> 
-    <button (click)="removeFromWishList(movie.title)" class="btn btn-danger btn-sm">&times;</button>
+    <button (click)="removeFromWishList(movie)" class="btn btn-danger btn-sm">&times;</button>
 </div>
          
           

@@ -17,9 +17,9 @@ export class WishlistCardComponent {
 
   constructor(public eventService: EventService){}
 
-  removeFromWishList(title: string) {
+  removeFromWishList(movie: MovieListData) {
     this.eventService.isClicked();
-    this.deleteMovieEmitter.emit(title);
+    this.deleteMovieEmitter.emit(movie);
   }
 
 }

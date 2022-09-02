@@ -13,8 +13,7 @@ import { WishlistService } from '../../services/wishlist.service';
 export class MovieCardComponent implements OnInit, AfterContentChecked {
 
   @Input() movie!: MovieListData;
-  @Input() newMovie !: NewAddedMovie;
-  @Input() removedMovie : boolean = true;
+  @Input() newMovie !: MovieListData;
   
   imgSrc = MovieConstants.imgSrc;
   isMovieInWishlist : boolean = false;
@@ -30,22 +29,12 @@ export class MovieCardComponent implements OnInit, AfterContentChecked {
     this.isMovieInWishlist = this.wishlist.isInWishList(this.movie);
   }
   
-  addNewMovieToWishlist(newMovie: NewAddedMovie) {
-    // this.wishlist.addNewToLocalStorage(newMovie);
-    // this.isMovieInWishlist = true;
-  }
-
-  removeNewMovieFromWishlist(newMovie: NewAddedMovie) {
-    this.wishlist.removeFromLocalStorage(newMovie.title);
-    this.isMovieInWishlist = false;
-  }
-
   addToWishlist(movie: MovieListData) {
     this.wishlist.addToLocalStorage(movie);
       this.isMovieInWishlist = true;
   }
   removeFromWishlist(movie: MovieListData ) {
-    this.wishlist.removeFromLocalStorage(movie.title);
+    this.wishlist.removeFromLocalStorage(movie);
     this.isMovieInWishlist = false;
   }
   ngAfterContentChecked(): void {
