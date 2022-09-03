@@ -10,10 +10,7 @@ import { WishlistService } from '../../services/wishlist.service';
   styleUrls: ['./movie-card.component.css']
 })
 export class MovieCardComponent implements OnInit, AfterContentChecked {
-
   @Input() movie!: MovieListData;
-  @Input() newMovie !: MovieListData;
-
   imgSrc = MovieConstants.imgSrc;
   isMovieInWishlist: boolean = false;
   addMovieBtn = MovieConstants.addToWishListBtn;

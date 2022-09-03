@@ -1,7 +1,7 @@
 <div class="container">
     <ng-container *ngFor="let count of formCounter">
-        <app-movie-form (counterEmitter)="addNewForm($event)" (newMovieDataEmitter)="addNewMovie($event)"></app-movie-form>
+        <app-movie-form (newMovieDataEmitter)="addNewMovie($event)"></app-movie-form>
     </ng-container>
-    
+    <button id="addMore" (click)="addNewForm()" class="btn btn-sm button">Add More</button>
 </div>
 <button class="btn btn-warning" (click)="addMovieToStorage()"> SUBMIT </button>

@@ -1,9 +1,9 @@
 <figure *ngIf="movie" [id]="movie.showId">
-    <ng-container *ngIf="!movie.imgSrc; else skeletonImg">
-        <img [src]="imgSrc">
+    <ng-container *ngIf="movie.imgSrc; else skeletonImg">
+        <img [src]="movie.imgSrc[0]">
     </ng-container>
     <ng-template #skeletonImg>
-        <img [src]="movie.imgSrc">
+        <img [src]="imgSrc">
     </ng-template>
     <figcaption>
         <span class="color-text">{{movie.releaseYear}}</span><br>

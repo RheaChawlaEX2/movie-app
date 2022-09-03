@@ -1,6 +1,6 @@
 export interface MovieListData {
     showId: string,
-    imgSrc?: string,
+    imgSrc?: any[],
     type: string,
     title: string,
     director?: string,
@@ -10,11 +10,10 @@ export interface MovieListData {
     releaseYear: number,
     rating: string
 }
-
-export interface FilterData{  
+export interface FilterData {
     search: string,
     type: string,
-    order: string,    
+    order: string,
 }
 
 

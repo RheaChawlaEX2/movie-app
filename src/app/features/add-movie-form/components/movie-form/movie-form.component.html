@@ -1,9 +1,12 @@
 <div class="container">
   <form class="form" [formGroup]="myForm" (ngSubmit)="onSubmit(myForm.value)">
-    <label>Image:  </label> 
-    <div><img [src]="imgSrc" *ngIf="imgSrc"></div>
-    <input formControlName="file" type='file' id="imageUpload" accept=".png, .jpg, .jpeg" #fileInput
+    <label>Image: </label>
+    <input formControlName="file" multiple type='file' id="imageUpload" accept=".png, .jpg, .jpeg" #fileInput
       (change)="uploadFile($event)" />
+    <div *ngFor="let img of imgSrc; let i = index">
+      <img [src]="img" *ngIf="imgSrc">
+      <button class="btn btn-danger btn-sm" (click)="removeMovieImg(imgSrc[i])">&times;</button>
+    </div>
     <div>
       <label>
         Title:
@@ -32,7 +35,7 @@
       </select>
     </div>
     <button class="btn button btn-light" type="submit">Add</button>
-    <button (click)="setCounter()" id="addMore" class="btn btn-sm button">Add More</button>
+
   </form>
 
 </div>
